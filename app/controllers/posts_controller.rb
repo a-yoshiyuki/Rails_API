@@ -2,6 +2,7 @@ module Api
   module v1
     class PostsController < ApplicationController
       before_action :set_post, only: [:show, :update, :destroy]
+      skip_before_action :verify_authenticity_token
 
       def index
         posts = Post.order(created_at: :desc)
@@ -9,7 +10,7 @@ module Api
       end
 
       def show
-        render json: { status: 'SUCCESS', message: 'Loaded posts', data: @posts }
+        render json: { status: 'SUCCESS', message: 'Loaded posts', data: @post }
       end
 
       def create
@@ -23,14 +24,14 @@ module Api
 
       def destroy
         @post.destroy
-        render json: { status: 'SUCCESS', message: 'Deleted the post', data: @posts }
+        render json: { status: 'SUCCESS', message: 'Deleted the post', data: @post }
       end
 
       def update
         if @post.update(post_params)
-          render json: { status: 'SUCCESS', message: 'Update the posts', data: @posts }
+          render json: { status: 'SUCCESS', message: 'Update the posts', data: @post }
         else
-          render json: { status: 'ERROR', message: 'not update the posts', data: @posts.errors }
+          render json: { status: 'ERROR', message: 'not update the posts', data: @post.errors }
         end
       end
 
