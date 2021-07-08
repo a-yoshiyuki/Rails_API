@@ -1,5 +1,5 @@
 module Api
-  module v1
+  module V1
     class PostsController < ApplicationController
       before_action :set_post, only: [:show, :update, :destroy]
       skip_before_action :verify_authenticity_token
@@ -10,7 +10,7 @@ module Api
       end
 
       def show
-        render json: { status: 'SUCCESS', message: 'Loaded posts', data: @post }
+        render json: { status: 'SUCCESS', message: 'Loaded the post', data: @post }
       end
 
       def create
@@ -29,9 +29,9 @@ module Api
 
       def update
         if @post.update(post_params)
-          render json: { status: 'SUCCESS', message: 'Update the posts', data: @post }
+          render json: { status: 'SUCCESS', message: 'Updated the post', data: @post }
         else
-          render json: { status: 'ERROR', message: 'not update the posts', data: @post.errors }
+          render json: { status: 'SUCCESS', message: 'Not updated', data: @post.errors }
         end
       end
 
